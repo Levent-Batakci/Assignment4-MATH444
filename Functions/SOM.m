@@ -1,4 +1,4 @@
-function map = SOM(X, k, parameters)
+function M = SOM(X, k, parameters)
 
 %Get data dimensions
 [n, p] = size(X);
@@ -7,6 +7,7 @@ function map = SOM(X, k, parameters)
 N = k^(1/2);
 if(mod(N,1) >= 1e-14)
     disp("Lattice cardinality does not fit the number of dimensions!");
+end
 N = round(N);
 
 %Initialize the parameters
@@ -20,7 +21,7 @@ T0 = parameters(6);
 %Initialize the prototypes
 M = zeros(n,k);
 for i = 1:k
-    m = RandRange(0.01,0, n);
+    m = RandRange(0.001,0, n);
     M(:,i ) = m;
 end
 
@@ -28,8 +29,8 @@ end
 neighborhood = zeros(k,k);
 for x1 = 1:k
     for x2 = 1:k
-        c1 = getCoord(x1);
-        c2 = getCoord(x2);
+        c1 = getCoord(x1,N);
+        c2 = getCoord(x2,N);
         neighborhood(x1,x2) = exp(-1 /(2 * gamma0^2) * sum((c1-c2) .^ 2));
     end 
 end
@@ -57,14 +58,25 @@ while(t<= Tmax)
     bmu = M(:, bmu_I);
     
     %Update prototypes!
-    c = getCoord(bmu_I);
+    c = getCoord(bmu_I,N);
     diff = (x-bmu);
     for i = 1:k
-        c2 = getCoord(i);
+        c2 = getCoord(i,N);
         coupling_strength = exp(-1/(2*gamma^2) * norm(c-c2)^2);
         M(:,i) = M(:,i) + a * coupling_strength * diff; 
     end
+    
+    t=t+1;
 end
+
+count = 1;
+map = zeros(N,N,n);
+while(count <= k)
+    c = getCoord(count, N);
+    map(c(1), c(2),:) = M(:, count);
+    count = count+1;
+end
+
 
 end
 

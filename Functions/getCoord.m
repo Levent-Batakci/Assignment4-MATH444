@@ -1,4 +1,4 @@
-function coord = getCoord(x, k)
-    coord = [x-mod(x,k)+1 mod(x,k)+1]';
+function coord = getCoord(x, N)
+    coord = [floor((x-1)/N)+1 mod(x-1,N)+1]';
 end
 
