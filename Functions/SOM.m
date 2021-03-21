@@ -25,16 +25,6 @@ for i = 1:k
     M(:,i ) = m;
 end
 
-%Initialize Nieghborhood matirx
-neighborhood = zeros(k,k);
-for x1 = 1:k
-    for x2 = 1:k
-        c1 = getCoord(x1,N);
-        c2 = getCoord(x2,N);
-        neighborhood(x1,x2) = exp(-1 /(2 * gamma0^2) * sum((c1-c2) .^ 2));
-    end 
-end
-
 C = zeros(2,k);
 for i = 1:k
     C(:, i) = getCoord(i,N);
