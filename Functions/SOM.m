@@ -40,7 +40,7 @@ while(t<= Tmax)
     %Choose a random data point to introduce
     x = datasample(X,1,2);
     
-    [~, bmu_I] = min(vecnorm(M - x * ones(1, size(M,2))));
+    [~, bmu_I] = min(vecnorm(M - x));
     bmu = M(:, bmu_I);
     
     %Update prototypes!
