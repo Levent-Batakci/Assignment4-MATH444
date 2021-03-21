@@ -9,7 +9,7 @@ phi = RandRange(pi, 0, p);
 r = 1;
 data = r * [cos(theta).*sin(phi) sin(theta).*sin(phi) cos(phi)]'; %Sphere :D
 
-k=169;
+k=100;
 N = k^(1/2);
 params = defaultParams(k,2);
 map = SOM(data, k, params);
@@ -21,10 +21,8 @@ X = map(1,:);
 Y = map(2,:);
 Z = map(3,:);
 scatter3(X,Y,Z)
-% T = delaunay(X,Y);
-% trimesh(T,X,Y,Z,"FaceAlpha",0)
 
-%Mesh visualization because I suck at matlab
+%Mesh visualization
 for i = 1:k
     c = getCoord(i,N);
     x = c(1);

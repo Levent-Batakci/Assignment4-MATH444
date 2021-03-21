@@ -35,6 +35,11 @@ for x1 = 1:k
     end 
 end
 
+C = zeros(2,k);
+for i = 1:k
+    C(:, i) = getCoord(i,N);
+end
+
 %LEARN!
 t=0;
 while(t<= Tmax)
@@ -45,26 +50,15 @@ while(t<= Tmax)
     %Choose a random data point to introduce
     x = datasample(X,1,2);
     
-    %Find the best matching unit
-    minDist = norm(x- M(:,1)); 
-    bmu_I = 1;
-    for i = 2:k
-        d = norm(x- M(:,i));
-        if(d < minDist)
-            minDist = d;
-            bmu_I = i;
-        end
-    end
+    [~, bmu_I] = min(vecnorm(M - x * ones(1, size(M,2))));
     bmu = M(:, bmu_I);
     
     %Update prototypes!
     c = getCoord(bmu_I,N);
     diff = (x-bmu);
-    for i = 1:k
-        c2 = getCoord(i,N);
-        coupling_strength = exp(-1/(2*gamma^2) * norm(c-c2)^2);
-        M(:,i) = M(:,i) + a * coupling_strength * diff; 
-    end
+    
+    H = exp(-1/(2*gamma^2) * (vecnorm(c-C).^2));
+    M = M + a * H .* diff;
     
     t=t+1;
 end
