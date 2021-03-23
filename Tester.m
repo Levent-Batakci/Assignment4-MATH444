@@ -9,7 +9,7 @@ phi = RandRange(pi, 0, p);
 r = 1;
 data = r * [cos(theta).*sin(phi) sin(theta).*sin(phi) cos(phi)]'; %Sphere :D
 
-k=49;
+k=100;
 N = k^(1/2);
 params = defaultParams(k,2);
 map = SOM(data, k, params);
