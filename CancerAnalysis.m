@@ -8,10 +8,10 @@ load WisconsinBreastCancerData_Unpacked.mat
 X = Data_WCD_Matrix;
 I = I_Label';
 benign = X(:,I==1);
-malginant = X(:,I==2);
+malignant = X(:,I==2);
 
 %SOM!
-k = 49;
+k = 100;
 N = k^(1/2);
 params = defaultParams(k,2);
 M = SOM(X, k, params);

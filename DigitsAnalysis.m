@@ -18,9 +18,9 @@ M = SOM(X, k, params);
 
 
 %Visualize protoypes by finding closest matches
-V = zeros(160,160);
-for i = 1:10
-    for j = 1:10
+V = zeros(16*N,16*N);
+for i = 1:N
+    for j = 1:N
         key = getKey(i,j,N);
         m = M(:, key);
         

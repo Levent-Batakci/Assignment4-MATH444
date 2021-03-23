@@ -41,11 +41,10 @@ while(t<= Tmax)
     x = datasample(X,1,2);
     
     [~, bmu_I] = min(vecnorm(M - x));
-    bmu = M(:, bmu_I);
     
     %Update prototypes!
     c = getCoord(bmu_I,N);
-    diff = (x-bmu);
+    diff = (x-M);
     
     H = exp(-1/(2*gamma^2) * (vecnorm(c-C).^2));
     M = M + a * H .* diff;
