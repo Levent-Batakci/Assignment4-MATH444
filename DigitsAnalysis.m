@@ -33,3 +33,4 @@ for i = 1:N
 end
 
 imagesc(V)
+set(gca,'visible','off');

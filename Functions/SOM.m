@@ -51,15 +51,5 @@ while(t<= Tmax)
     
     t=t+1;
 end
-
-count = 1;
-map = zeros(N,N,n);
-while(count <= k)
-    c = getCoord(count, N);
-    map(c(1), c(2),:) = M(:, count);
-    count = count+1;
-end
-
-
 end
 
